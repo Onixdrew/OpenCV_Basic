@@ -3,14 +3,14 @@ import cv2
 
 cap = cv2.VideoCapture(0,cv2.CAP_DSHOW)
 
-majinBooClassif = cv2.CascadeClassifier('cascade.xml')
+clasificador = cv2.CascadeClassifier('cascade.xml')
 
 while True:
 	
 	ret,frame = cap.read()
 	gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
 
-	toy = majinBooClassif.detectMultiScale(gray,
+	toy = clasificador.detectMultiScale(gray,
 	scaleFactor = 5,
 	minNeighbors = 91,
 	minSize=(70,78))
