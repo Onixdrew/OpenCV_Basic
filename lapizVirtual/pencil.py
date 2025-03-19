@@ -41,8 +41,8 @@ while True:
 	ret, frame = cap.read()
 	if ret == False: break
 
-	frame = cv2.flip(frame, 1)  # Se invierte horizontalmente la imagen (efecto espejo).
-	frame=cv2.resize(frame,(900,670))
+	frame = cv2.flip(frame,1)  # Se invierte horizontalmente la imagen (efecto espejo).
+	frame=cv2.resize(frame,(800,600))
 	frameHSV = cv2.cvtColor(frame, cv2.COLOR_BGR2HSV)
 	
 	# Creación de la imagen auxiliar
@@ -56,18 +56,26 @@ while True:
 	cv2.rectangle(frame, (100, 0), (150, 50), colorVerde, grosorVerde)
 	cv2.rectangle(frame, (150, 0), (200, 50), colorCeleste, grosorCeleste)
 
-	# Rectángulo superior central, que nos ayudará a limpiar la pantalla
-	cv2.rectangle(frame, (300, 0), (400, 50), colorLimpiarPantalla, 1)
-	cv2.putText(frame, 'Limpiar', (320, 20), 6, 0.6, colorLimpiarPantalla, 1, cv2.LINE_AA)
-	cv2.putText(frame, 'pantalla', (320, 40), 6, 0.6, colorLimpiarPantalla, 1, cv2.LINE_AA)
+ 
+	
+	# Posicion del Borrador
+	cv2.rectangle(frame, (550, 0), (650, 50), colorLimpiarPantalla, 1)
+	cv2.putText(frame, 'Borrador', (565, 27), 6, 0.6, colorLimpiarPantalla, 1, cv2.LINE_AA)
+	
 
 	# Cuadrados dibujados en la parte superior derecha (grosor del marcador para dibujar)
-	cv2.rectangle(frame, (490, 0), (540, 50), (0, 0, 0), grosorPeque)
-	cv2.circle(frame, (515, 25), 3, (0, 0, 0), -1)
-	cv2.rectangle(frame, (540, 0), (590, 50), (0, 0, 0), grosorMedio)
-	cv2.circle(frame, (565, 25), 7, (0, 0, 0), -1)
-	cv2.rectangle(frame, (590, 0), (640, 50), (0, 0, 0), grosorGrande)
-	cv2.circle(frame, (615, 25), 11, (0, 0, 0), -1)
+ 
+	#Grosor Pequeño
+	cv2.rectangle(frame, (730, 160), (780, 210), (0, 0, 0), grosorPeque)
+	cv2.circle(frame, (756,185 ), 3, (0, 0, 0), -1)
+	
+	#Grosor Mediano
+	cv2.rectangle(frame, (730, 230), (780, 280), (0, 0, 0), grosorMedio)
+	cv2.circle(frame, (756, 255), 7, (0, 0, 0), -1)
+	
+	#Grosor Grande
+	cv2.rectangle(frame, (730, 300), (780, 350), (0, 0, 0), grosorGrande)
+	cv2.circle(frame, (756, 325), 11, (0, 0, 0), -1)
 	#-----------------------------------------------------------------------------------
 	
 	# Detección del color celeste
@@ -172,7 +180,7 @@ while True:
 	#....Lienzo
 	# cv2.imshow('imAux', imAux)
 	#....Imagen en vivo
-	cv2.imshow('frame', frame)
+	cv2.imshow('Tablero', frame)
 	
 	k = cv2.waitKey(1)
 	if k == 27:
