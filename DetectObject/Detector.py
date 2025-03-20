@@ -10,12 +10,12 @@ while True:
 	ret,frame = cap.read()
 	gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
 
-	toy = clasificador.detectMultiScale(gray,
+	objeto = clasificador.detectMultiScale(gray,
 	scaleFactor = 5,
 	minNeighbors = 91,
 	minSize=(70,78))
 
-	for (x,y,w,h) in toy:
+	for (x,y,w,h) in objeto:
 		cv2.rectangle(frame, (x,y),(x+w,y+h),(0,255,0),2)
 		cv2.putText(frame,'Majin Boo',(x,y-10),2,0.7,(0,255,0),2,cv2.LINE_AA)
 
