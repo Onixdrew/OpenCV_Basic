@@ -9,10 +9,12 @@ colorFinal = np.array([110, 255, 255], np.uint8)  # del color celeste.
 
 
 # Definición de colores 
-colorVerde = (0, 255, 36)
-colorAmarillo = (89, 222, 255)
-colorCeleste = (255, 113, 82)
-colorRosa = (128, 0, 255)
+colores = {
+    "verde": (0, 255, 36),
+    "amarillo": (89, 222, 255),
+    "celeste": (255, 113, 82),
+    "rosa": (128, 0, 255),
+}
 
 colorBorrador = (0, 0, 255)  # Solo se usará para el cuadro superior de 'Limpiar Pantalla'
 
@@ -28,7 +30,7 @@ grosorMedio = 1
 grosorGrande = 1
 
 #---------Variables para el marcador / lápiz virtual -------------------------
-color = colorVerde  # Color de entrada, y variable que asignará el color del marcador
+color = colores["verde"]  # Color de entrada, y variable que asignará el color del marcador
 grosor = 3  # Grosor que tendrá el marcador
 #------------------------------------------------------------------------------------------
 
@@ -50,10 +52,10 @@ while True:
 	if imAux is None: imAux = np.zeros(frame.shape, dtype=np.uint8)
 
 	# /////////////////////////// Dibujo de la interfaz gráfica //////////////////////////////////
-	cv2.rectangle(frame, (20, 10), (70, 60), colorVerde, grosorVerde)
-	cv2.rectangle(frame, (80, 10), (130, 60), colorAmarillo, grosorAmarillo)
-	cv2.rectangle(frame, (140, 10), (190, 60), colorCeleste, grosorCeleste)
-	cv2.rectangle(frame, (200, 10), (250, 60), colorRosa, grosorRosa)
+	cv2.rectangle(frame, (20, 10), (70, 60), colores["verde"], grosorVerde)
+	cv2.rectangle(frame, (80, 10), (130, 60), colores["amarillo"], grosorAmarillo)
+	cv2.rectangle(frame, (140, 10), (190, 60), colores["celeste"], grosorCeleste)
+	cv2.rectangle(frame, (200, 10), (250, 60), colores["rosa"], grosorRosa)
 
 
 	
@@ -109,26 +111,26 @@ while True:
 				# Si el usuario mueve el marcador a una zona de color, cambia el color del lápiz.
 				if 20 < x2 < 70 and 10 < y2 < 60:
 					
-					color = colorVerde  
+					color = colores["verde"]  
 					grosorVerde = 6
 					grosorCeleste = 2
 					grosorAmarillo = 2
 					grosorRosa = 2
 				if 80 < x2 < 130 and 10 < y2 < 60:
-					color = colorAmarillo  # Color del lápiz/marcador virtual
+					color = colores["amarillo"]  # Color del lápiz/marcador virtual
 					grosorAmarillo = 6
 					grosorRosa = 2
 					grosorVerde = 2
 					grosorCeleste = 2
 					
 				if 140 < x2 < 190 and 10 < y2 < 60:
-					color = colorCeleste  
+					color = colores["celeste"]  
 					grosorCeleste = 6
 					grosorAmarillo = 2
 					grosorRosa = 2
 					grosorVerde = 2
 				if 200 < x2 < 250 and 10 < y2 < 60:
-					color = colorRosa  
+					color = colores["rosa"]  
 					grosorRosa = 6
 					grosorAmarillo = 2
 					grosorVerde = 2
@@ -175,7 +177,7 @@ while True:
 	_, th = cv2.threshold(imAuxGray, 10, 255, cv2.THRESH_BINARY)
 	# invierte los valores de la imagen binaria. Los blancos (255) se vuelven negros (0). Ahora, thInv tiene el fondo blanco y las líneas negras.
 	thInv = cv2.bitwise_not(th)
- 	# Eliminación del fondo del dibujo en el frame,  mantiene solo los píxeles donde thInv es blanco (255) y elimina los píxeles donde es negro (0).
+	# Eliminación del fondo del dibujo en el frame,  mantiene solo los píxeles donde thInv es blanco (255) y elimina los píxeles donde es negro (0).
 	frame = cv2.bitwise_and(frame, frame, mask=thInv)
 	# Fusiona la imAux (que contiene los dibujos) con el frame sin afectar la imagen de la cámara.
 	# Las áreas donde había dibujos en imAux se eliminan del frame. El fondo de la cámara se mantiene intacto.
